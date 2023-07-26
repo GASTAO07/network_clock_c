@@ -1,0 +1,44 @@
+[
+{
+  "directory": "C:/Users/vboxuser/Downloads/essai2/network_clock/build/src",
+  "command": "C:\\MinGW\\bin\\gcc.exe  @CMakeFiles/clock_server.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\clock_server.dir\\config.c.obj -c C:\\Users\\vboxuser\\Downloads\\essai2\\network_clock\\Clock_Project\\src\\config.c",
+  "file": "C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/src/config.c",
+  "output": "src/CMakeFiles/clock_server.dir/config.c.obj"
+},
+{
+  "directory": "C:/Users/vboxuser/Downloads/essai2/network_clock/build/src",
+  "command": "C:\\MinGW\\bin\\gcc.exe  @CMakeFiles/clock_server.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\clock_server.dir\\console.c.obj -c C:\\Users\\vboxuser\\Downloads\\essai2\\network_clock\\Clock_Project\\src\\console.c",
+  "file": "C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/src/console.c",
+  "output": "src/CMakeFiles/clock_server.dir/console.c.obj"
+},
+{
+  "directory": "C:/Users/vboxuser/Downloads/essai2/network_clock/build/src",
+  "command": "C:\\MinGW\\bin\\gcc.exe  @CMakeFiles/clock_server.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\clock_server.dir\\network_clock.c.obj -c C:\\Users\\vboxuser\\Downloads\\essai2\\network_clock\\Clock_Project\\src\\network_clock.c",
+  "file": "C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/src/network_clock.c",
+  "output": "src/CMakeFiles/clock_server.dir/network_clock.c.obj"
+},
+{
+  "directory": "C:/Users/vboxuser/Downloads/essai2/network_clock/build/src",
+  "command": "C:\\MinGW\\bin\\gcc.exe  @CMakeFiles/clock_server.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\clock_server.dir\\security.c.obj -c C:\\Users\\vboxuser\\Downloads\\essai2\\network_clock\\Clock_Project\\src\\security.c",
+  "file": "C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/src/security.c",
+  "output": "src/CMakeFiles/clock_server.dir/security.c.obj"
+},
+{
+  "directory": "C:/Users/vboxuser/Downloads/essai2/network_clock/build/src",
+  "command": "C:\\MinGW\\bin\\gcc.exe  @CMakeFiles/clock_server.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\clock_server.dir\\server.c.obj -c C:\\Users\\vboxuser\\Downloads\\essai2\\network_clock\\Clock_Project\\src\\server.c",
+  "file": "C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/src/server.c",
+  "output": "src/CMakeFiles/clock_server.dir/server.c.obj"
+},
+{
+  "directory": "C:/Users/vboxuser/Downloads/essai2/network_clock/build/src",
+  "command": "C:\\MinGW\\bin\\gcc.exe  @CMakeFiles/clock_server.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\clock_server.dir\\time_setup.c.obj -c C:\\Users\\vboxuser\\Downloads\\essai2\\network_clock\\Clock_Project\\src\\time_setup.c",
+  "file": "C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/src/time_setup.c",
+  "output": "src/CMakeFiles/clock_server.dir/time_setup.c.obj"
+},
+{
+  "directory": "C:/Users/vboxuser/Downloads/essai2/network_clock/build/src",
+  "command": "C:\\MinGW\\bin\\gcc.exe  @CMakeFiles/clock_server.dir/includes_C.rsp -g -std=gnu11 -o CMakeFiles\\clock_server.dir\\main_setime.c.obj -c C:\\Users\\vboxuser\\Downloads\\essai2\\network_clock\\Clock_Project\\src\\main_setime.c",
+  "file": "C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/src/main_setime.c",
+  "output": "src/CMakeFiles/clock_server.dir/main_setime.c.obj"
+}
+]

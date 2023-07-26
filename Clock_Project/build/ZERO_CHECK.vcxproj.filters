@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\vboxuser\Downloads\essai2\network_clock\Clock_Project\build\CMakeFiles\7672db35352145e1cbb231782ff8c401\generate.stamp.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="C:\Users\vboxuser\Downloads\essai2\network_clock\Clock_Project\src\CMakeLists.txt">
+      <Filter>Buildsystem Input Files\src</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{20E6F97B-941D-3228-B3ED-7D3B02C8ABE4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Buildsystem Input Files\src">
+      <UniqueIdentifier>{CFCE5ADA-59D7-37FA-838F-200F978A0C6E}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

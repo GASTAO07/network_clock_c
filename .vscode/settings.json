@@ -1,0 +1,18 @@
+{
+    "cmake.sourceDirectory": "C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project",
+    "files.associations": {
+        "pthread.h": "c",
+        "time.h": "c",
+        "server.h": "c",
+        "windows.h": "c",
+        "stdio.h": "c",
+        "stdlib.h": "c",
+        "config.h": "c",
+        "security.h": "c",
+        "string.h": "c",
+        "winsock2.h": "c",
+        "network_clock.h": "c",
+        "time_setup.h": "c",
+        "aclapi.h": "c"
+    }
+}

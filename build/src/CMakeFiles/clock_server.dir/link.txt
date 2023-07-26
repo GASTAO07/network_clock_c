@@ -1,0 +1,3 @@
+"C:\Program Files\CMake\bin\cmake.exe" -E rm -f CMakeFiles\clock_server.dir/objects.a
+C:\MinGW\bin\ar.exe qc CMakeFiles\clock_server.dir/objects.a @CMakeFiles\clock_server.dir\objects1.rsp
+C:\MinGW\bin\gcc.exe -g -Wl,--whole-archive CMakeFiles\clock_server.dir/objects.a -Wl,--no-whole-archive -o clock_server.exe -Wl,--out-implib,libclock_server.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\clock_server.dir\linkLibs.rsp

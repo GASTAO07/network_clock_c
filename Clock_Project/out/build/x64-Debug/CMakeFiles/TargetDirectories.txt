@@ -1,0 +1,5 @@
+C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/out/build/x64-Debug/CMakeFiles/edit_cache.dir
+C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/out/build/x64-Debug/CMakeFiles/rebuild_cache.dir
+C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/out/build/x64-Debug/src/CMakeFiles/clock_server.dir
+C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/out/build/x64-Debug/src/CMakeFiles/edit_cache.dir
+C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/out/build/x64-Debug/src/CMakeFiles/rebuild_cache.dir

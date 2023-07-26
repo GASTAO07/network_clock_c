@@ -1,0 +1,3 @@
+C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/build/CMakeFiles/ALL_BUILD.dir
+C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/build/CMakeFiles/ZERO_CHECK.dir
+C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/build/src/CMakeFiles/clock_server.dir
