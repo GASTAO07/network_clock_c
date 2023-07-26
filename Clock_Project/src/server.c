@@ -4,6 +4,8 @@
 #include <time.h>
 #include <winsock2.h>
 #include "../include/network_clock.h"
+#include "../include/time_setup.h"
+#include "../include/config.h"
 
 #define MAX_BUFFER_SIZE 1024
 
