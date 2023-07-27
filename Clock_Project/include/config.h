@@ -3,7 +3,7 @@
 
 #ifdef _WIN32
 
-#include <windows.h> // Include windows.h here for WCHAR and other Windows-specific types
+#include <windows.h>
 
 WCHAR *get_config_file_path();
 WCHAR *get_config_file_path_with_name();

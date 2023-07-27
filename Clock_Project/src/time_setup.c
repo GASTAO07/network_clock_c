@@ -50,7 +50,6 @@ void setSystemDateTime(int year, int month, int day, int hour, int minute, int s
         printf("Falha ao definir a data e a hora do sistema. Código de erro: %ld\n", error);
         if (errorMessage) {
             printf("Mensagem de erro: %s\n", errorMessage);
-            // Liberar a memória alocada por FormatMessageA
             LocalFree(errorMessage);
         }
     }
