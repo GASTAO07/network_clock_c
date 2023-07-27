@@ -2,13 +2,13 @@
 #include <stdlib.h>
 #include <winsock2.h>
 
-#define MAX_BUFFER_SIZE 1024
+#define MAX_BUFFER_SIZE 1024 // <-----------------------------------------
 
 int main() {
     WSADATA wsa;
     SOCKET client_socket;
     struct sockaddr_in server;
-    int port = 12345;
+    int port = 12345; // <-----------------------------------------
     char server_reply[MAX_BUFFER_SIZE];
     char user_input[MAX_BUFFER_SIZE];
 
@@ -24,7 +24,7 @@ int main() {
     }
 
     server.sin_family = AF_INET;
-    server.sin_addr.s_addr = inet_addr("127.0.0.1");
+    server.sin_addr.s_addr = inet_addr("127.0.0.1");// <-----------------------------------------
     server.sin_port = htons(port);
 
     if (connect(client_socket, (struct sockaddr *)&server, sizeof(server)) < 0) {

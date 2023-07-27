@@ -5,9 +5,9 @@
 #include <winsock2.h>
 #include "../include/network_clock.h"
 #include "../include/time_setup.h"
-#include "../include/config.h" // Include the header file for reading the port from the configuration file
+#include "../include/config.h" 
 
-#define MAX_BUFFER_SIZE 1024
+#define MAX_BUFFER_SIZE 1024 // <-----------------------------------------
 
 void start_network_clock_client() {
     WSADATA wsa;
@@ -38,7 +38,7 @@ void start_network_clock_client() {
 
     // Prepare the sockaddr_in structure
     server.sin_family = AF_INET;
-    server.sin_addr.s_addr = inet_addr("127.0.0.1"); // Loopback address (localhost)
+    server.sin_addr.s_addr = inet_addr("127.0.0.1"); // <-----------------------------------------
     server.sin_port = htons(port);
 
     // Connect to the server

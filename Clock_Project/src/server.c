@@ -5,9 +5,9 @@
 #include "../include/network_clock.h"
 #include "../include/time_setup.h"
 #include "../include/config.h"
-#include <process.h> // For _beginthread()
+#include <process.h> 
 
-#define MAX_BUFFER_SIZE 1024
+#define MAX_BUFFER_SIZE 1024 // <-----------------------------------------
 
 void handle_client(void* data) {
     SOCKET client_socket = (SOCKET)data;
@@ -40,7 +40,7 @@ void handle_client(void* data) {
 
                 case 2:
                     // Check if the client is local or remote
-                    if (strcmp(client_ip, "127.0.0.1") == 0) {
+                    if (strcmp(client_ip, "127.0.0.1") == 0) { // <-----------------------------------------
                         // Set a new date and time
                         send(client_socket, "Enter the new date and time in the format: YYYY-MM-DD HH:MM:SS\n", strlen(msg), 0);
                         bytes_received = recv(client_socket, buffer, MAX_BUFFER_SIZE, 0);
@@ -72,9 +72,9 @@ void handle_client(void* data) {
     }
 }
 
-void start_network_clock_server()
+void start_network_clock_server() // <-----------------------------------------
 {
-    WSADATA wsa;
+    WSADATA wsa; // <-----------------------------------------
     SOCKET server_socket, client_socket;
     struct sockaddr_in server, client;
     int port = read_port_from_config();
@@ -130,7 +130,7 @@ void start_network_clock_server()
         char *client_ip = inet_ntoa(client.sin_addr);
 
         // Check if the client is local or remote
-        if (strcmp(client_ip, "127.0.0.1") == 0)
+        if (strcmp(client_ip, "127.0.0.1") == 0) // <-----------------------------------------
         {
             printf("Local client connected\n");
         }

@@ -7,7 +7,7 @@ void printCurrentSystemDateTime() {
     SYSTEMTIME currentTime;
     GetSystemTime(&currentTime);  // Get current system time
 
-    printf("Current system date and time: %04d-%02d-%02d %02d:%02d:%02d\n", 
+    printf("Current system date and time: %04d-%02d-%02d %02d:%02d:%02d\n",  // <-----------------------------------------
            currentTime.wYear, 
            currentTime.wMonth, 
            currentTime.wDay, 
@@ -16,7 +16,7 @@ void printCurrentSystemDateTime() {
            currentTime.wSecond);
 }
 
-void setSystemDateTime(int year, int month, int day, int hour, int minute, int second) {
+void setSystemDateTime(int year, int month, int day, int hour, int minute, int second) { // <-----------------------------------------
     SYSTEMTIME newTime;
     GetSystemTime(&newTime);  // Get current system time
 

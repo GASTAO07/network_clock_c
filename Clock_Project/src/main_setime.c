@@ -30,7 +30,7 @@ int main() {
         return 1;
     }
 
-    printf("\n[1] Help\n");
+    printf("\n[1] Help\n"); // <-----------------------------------------
     printf("[2] Start the server\n");
     printf("[3] Set the time\n");
     printf("[0] Exit\n");
@@ -54,7 +54,7 @@ int main() {
     printf("Server started...\n");
     Sleep(1000); 
     while (1) {
-        printf("\n[1] Help\n");
+        printf("\n[1] Help\n");// <-----------------------------------------
         printf("[2] Start the server\n");
         printf("[3] Set the time\n");
         printf("[0] Exit\n");
@@ -69,9 +69,9 @@ int main() {
                 break;
             case '3':
                 {
-                    int year, month, day, hour, minute, second;
+                    int year, month, day, hour, minute, second;// <-----------------------------------------
 
-                    printf("Enter year: ");
+                    printf("Enter year: "); 
                     scanf("%d", &year);
                     printf("Enter month: ");
                     scanf("%d", &month);
