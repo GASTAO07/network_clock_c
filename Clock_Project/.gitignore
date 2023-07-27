@@ -1,0 +1,16 @@
+# Ignore build files and directories
+build/
+bin/
+lib/
+target/
+
+# Ignore CMake artifacts
+CMakeLists.txt.user
+CMakeCache.txt
+CMakeFiles/
+CMakeScripts/
+CMakeOutput.log
+Makefile
+cmake_install.cmake
+install_manifest.txt
+CTestTestfile.cmake

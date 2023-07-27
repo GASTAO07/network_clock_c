@@ -187,12 +187,16 @@
 //         }
 //     }
 // }
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "../include/server.h"
 #include "../include/time_setup.h"
 #include "../include/config.h" // Include the header file for reading the port from the configuration file
+
+// ... (unchanged code)
 
 void printMenu() {
     printf("\n[1] Help\n");
@@ -208,7 +212,7 @@ void start_console() {
         fprintf(stderr, "Failed to read the port from the configuration file.\n");
         return;
     }
-
+    
     printMenu();
 
     while (1) {

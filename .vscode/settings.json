@@ -13,6 +13,7 @@
         "winsock2.h": "c",
         "network_clock.h": "c",
         "time_setup.h": "c",
-        "aclapi.h": "c"
+        "aclapi.h": "c",
+        "conio.h": "c"
     }
 }

@@ -1,0 +1,99 @@
+#include "../include/network_clock.h"
+#include <stdio.h>
+#include <time.h>
+#include <windows.h>
+#include <stdlib.h>
+#include "../include/security.h"
+#include "../include/server.h"
+#include "../include/time_setup.h"
+#include "../include/config.h"
+
+#include <pthread.h>
+
+void printCurrentSystemDateTime() {
+    SYSTEMTIME currentTime;
+    GetSystemTime(&currentTime);  // Get current system time
+
+    printf("Current system date and time: %04d-%02d-%02d %02d:%02d:%02d\n", 
+           currentTime.wYear, 
+           currentTime.wMonth, 
+           currentTime.wDay, 
+           currentTime.wHour, 
+           currentTime.wMinute, 
+           currentTime.wSecond);
+}
+
+void setSystemDateTime(int year, int month, int day, int hour, int minute, int second) {
+    SYSTEMTIME newTime;
+    GetSystemTime(&newTime);  // Get current system time
+
+    newTime.wYear = (WORD) year;
+    newTime.wMonth = (WORD) month;
+    newTime.wDay = (WORD) day;
+    newTime.wHour = (WORD) hour;
+    newTime.wMinute = (WORD) minute;
+    newTime.wSecond = (WORD) second;
+    newTime.wMilliseconds = 0;
+
+    // Ajustar a data e a hora usando SetSystemTime
+    if (SetSystemTime(&newTime)) {
+        printf("Data e hora do sistema definidas com sucesso.\n");
+    } else {
+        // Lidar com o erro quando SetSystemTime falhar
+        DWORD error = GetLastError();
+        LPSTR errorMessage = NULL;
+
+        // Obter a mensagem de erro correspondente ao código de erro
+        FormatMessageA(
+            FORMAT_MESSAGE_ALLOCATE_BUFFER | FORMAT_MESSAGE_FROM_SYSTEM | FORMAT_MESSAGE_IGNORE_INSERTS,
+            NULL,
+            error,
+            MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
+            (LPSTR)&errorMessage,
+            0,
+            NULL
+        );
+
+        printf("Falha ao definir a data e a hora do sistema. Código de erro: %ld\n", error);
+        if (errorMessage) {
+            printf("Mensagem de erro: %s\n", errorMessage);
+            // Liberar a memória alocada por FormatMessageA
+            LocalFree(errorMessage);
+        }
+    }
+}
+
+
+int main()
+{
+    // // Define as permissões do arquivo de configuração
+    // int result = check_and_set_config_file_permissions();
+    // if (result == 0)
+    // {
+    //     printf("Config file permissions set successfully.\n");
+    // }
+    // else
+    // {
+    //     printf("Error setting config file permissions.\n");
+    // }
+
+    // Define a data e hora do sistema
+    int year, month, day, hour, minute, second;
+
+    printf("Enter year: ");
+    scanf("%d", &year);
+    printf("Enter month: ");
+    scanf("%d", &month);
+    printf("Enter day: ");
+    scanf("%d", &day);
+    printf("Enter hour: ");
+    scanf("%d", &hour);
+    printf("Enter minute: ");
+    scanf("%d", &minute);
+    printf("Enter second: ");
+    scanf("%d", &second);
+
+    setSystemDateTime(year, month, day, hour, minute, second);
+
+    return 0;
+}

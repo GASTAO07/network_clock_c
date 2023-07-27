@@ -1,0 +1,14 @@
+- Les chemins, adresses et ports 
+
+
+-funcoes 
+
+
+
+- openssh
+
+
+
+- plusieurs clients 
+
+
