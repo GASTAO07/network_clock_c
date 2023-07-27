@@ -1,0 +1,10 @@
+^C:\USERS\VBOXUSER\DOWNLOADS\ESSAI2\NETWORK_CLOCK\CLOCK_PROJECT\SRC\BUILD\CMAKEFILES\AFB261144E9DD88C16D412CECDEA8A80\GENERATE.STAMP.RULE
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/src -BC:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/src/build --check-stamp-list CMakeFiles/generate.stamp.list --vs-solution-file C:/Users/vboxuser/Downloads/essai2/network_clock/Clock_Project/src/build/Project.sln
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
