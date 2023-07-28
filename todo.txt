@@ -1,3 +1,5 @@
+Protection : 
+int year, int month, int day, int hour, int minute, int second
 - Les chemins, adresses et ports 
 
 
@@ -12,3 +14,10 @@
 - plusieurs clients 
 
 
+security.c connexion avec les autres ? 
+- buffer overflow 
+
+inclure toutes les bibliotheques dans un dossier 
+127.0.0.1
+
+repetitions de code

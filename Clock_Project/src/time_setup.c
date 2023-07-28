@@ -3,35 +3,40 @@
 #include <time.h>
 #include <windows.h>
 
-void printCurrentSystemDateTime() {
+void printCurrentSystemDateTime()
+{
     SYSTEMTIME currentTime;
-    GetSystemTime(&currentTime);  // Get current system time
+    GetSystemTime(&currentTime); // Get current system time
 
-    printf("Current system date and time: %04d-%02d-%02d %02d:%02d:%02d\n",  // <-----------------------------------------
-           currentTime.wYear, 
-           currentTime.wMonth, 
-           currentTime.wDay, 
-           currentTime.wHour, 
-           currentTime.wMinute, 
+    printf("Current system date and time: %04d-%02d-%02d %02d:%02d:%02d\n", // <-----------------------------------------
+           currentTime.wYear,
+           currentTime.wMonth,
+           currentTime.wDay,
+           currentTime.wHour,
+           currentTime.wMinute,
            currentTime.wSecond);
 }
 
-void setSystemDateTime(int year, int month, int day, int hour, int minute, int second) { // <-----------------------------------------
+void setSystemDateTime(int year, int month, int day, int hour, int minute, int second)
+{ // <-----------------------------------------
     SYSTEMTIME newTime;
-    GetSystemTime(&newTime);  // Get current system time
+    GetSystemTime(&newTime); // Get current system time
 
-    newTime.wYear = (WORD) year;
-    newTime.wMonth = (WORD) month;
-    newTime.wDay = (WORD) day;
-    newTime.wHour = (WORD) hour;
-    newTime.wMinute = (WORD) minute;
-    newTime.wSecond = (WORD) second;
+    newTime.wYear = (WORD)year;
+    newTime.wMonth = (WORD)month;
+    newTime.wDay = (WORD)day;
+    newTime.wHour = (WORD)hour;
+    newTime.wMinute = (WORD)minute;
+    newTime.wSecond = (WORD)second;
     newTime.wMilliseconds = 0;
 
     // Ajustar a data e a hora usando SetSystemTime
-    if (SetSystemTime(&newTime)) {
+    if (SetSystemTime(&newTime))
+    {
         printf("Data e hora do sistema definidas com sucesso.\n");
-    } else {
+    }
+    else
+    {
         // Lidar com o erro quando SetSystemTime falhar
         DWORD error = GetLastError();
         LPSTR errorMessage = NULL;
@@ -44,14 +49,35 @@ void setSystemDateTime(int year, int month, int day, int hour, int minute, int s
             MAKELANGID(LANG_NEUTRAL, SUBLANG_DEFAULT),
             (LPSTR)&errorMessage,
             0,
-            NULL
-        );
+            NULL);
 
         printf("Falha ao definir a data e a hora do sistema. Código de erro: %ld\n", error);
-        if (errorMessage) {
+        if (errorMessage)
+        {
             printf("Mensagem de erro: %s\n", errorMessage);
             LocalFree(errorMessage);
         }
     }
 }
 
+void getSystemDateTime(char *buffer)
+{
+    time_t rawtime;
+    struct tm *timeinfo;
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    strftime(buffer, 80, "%Y-%m-%d %H:%M:%S", timeinfo);
+}
+
+void getSystemDateTimeInFormat(char *buffer, const char *format)
+{
+    time_t rawtime;
+    struct tm *timeinfo;
+
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+
+    strftime(buffer, 80, format, timeinfo);
+}

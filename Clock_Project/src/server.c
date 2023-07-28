@@ -5,11 +5,40 @@
 #include "../include/network_clock.h"
 #include "../include/time_setup.h"
 #include "../include/config.h"
-#include <process.h> 
+#include <process.h>
+#include <time.h>
 
-#define MAX_BUFFER_SIZE 1024 // <-----------------------------------------
+#define MAX_BUFFER_SIZE 1024
 
-void handle_client(void* data) {
+void format_time(const char *format, char *output)
+{
+    time_t t = time(NULL);
+    struct tm *tm_info = localtime(&t);
+
+    if (strcmp(format, "HH:MM:SS") == 0)
+    {
+        strftime(output, 26, "%H:%M:%S\n", tm_info);
+    }
+    else if (strcmp(format, "HH:MM") == 0)
+    {
+        strftime(output, 26, "%H:%M\n", tm_info);
+    }
+    else if (strcmp(format, "HHMMSS") == 0)
+    {
+        strftime(output, 26, "%H%M%S\n", tm_info);
+    }
+    else if (strcmp(format, "HHMM") == 0)
+    {
+        strftime(output, 26, "%H%M\n", tm_info);
+    }
+    else
+    {
+        strcpy(output, "Invalid time format! Please try again.\n");
+    }
+}
+
+void handle_client(void *data)
+{
     SOCKET client_socket = (SOCKET)data;
     struct sockaddr_in client_addr;
     int client_addr_len = sizeof(client_addr);
@@ -21,52 +50,96 @@ void handle_client(void* data) {
     char *client_ip = inet_ntoa(client_addr.sin_addr);
 
     // Send welcome message with options to the client
-    char *msg = "Welcome!\nAvailable options:\n[1] Help\n[2] Set the time\n[3] Exit\n";
-    send(client_socket, msg, strlen(msg), 0);
+    char *welcome_msg = "Welcome!\n";
+    char *options_msg = "Available options:\n[1] Help\n[2] Set the time\n[3] Change format time\n[4] Exit\n";
 
-    while (1) {  // Loop to handle multiple requests
+    // Check if the client is local or remote
+    if (strcmp(client_ip, "127.0.0.1") == 0)
+    {
+        char time_str[100];
+        getSystemDateTime(time_str);
+        send(client_socket, time_str, strlen(time_str), 0);
+        send(client_socket, welcome_msg, strlen(welcome_msg), 0);
+        send(client_socket, options_msg, strlen(options_msg), 0);
+    }
+    else
+    {
+        // For remote clients, send the current server time immediately
+        char time_str[100];
+        getSystemDateTime(time_str);
+        send(client_socket, time_str, strlen(time_str), 0);
+    }
+
+    while (1)
+    { // Loop to handle multiple requests
         // Receive data from the client
         bytes_received = recv(client_socket, buffer, MAX_BUFFER_SIZE, 0);
-        if (bytes_received > 0) {
+
+        if (bytes_received > 0)
+        {
             buffer[bytes_received] = '\0';
 
             // Check the client's choice
             int choice = atoi(buffer);
-            switch (choice) {
-                case 1:
-                    // Help: Print available options
-                    send(client_socket, msg, strlen(msg), 0);
-                    break;
+            switch (choice)
+            {
+            case 1:
+                // Help: Print available options
+                send(client_socket, options_msg, strlen(options_msg), 0);
+                break;
 
-                case 2:
-                    // Check if the client is local or remote
-                    if (strcmp(client_ip, "127.0.0.1") == 0) { // <-----------------------------------------
-                        // Set a new date and time
-                        send(client_socket, "Enter the new date and time in the format: YYYY-MM-DD HH:MM:SS\n", strlen(msg), 0);
-                        bytes_received = recv(client_socket, buffer, MAX_BUFFER_SIZE, 0);
-                        if (bytes_received > 0) {
-                            buffer[bytes_received] = '\0';
-                            int year, month, day, hour, minute, second;
-                            sscanf(buffer, "%d-%d-%d %d:%d:%d", &year, &month, &day, &hour, &minute, &second);
-                            setSystemDateTime(year, month, day, hour, minute, second);
-                        }
-                    } else {
-                        // If the client is remote, don't allow them to set the time
-                        send(client_socket, "Only local clients can set the time.\n", strlen(msg), 0);
+            case 2:
+                // Check if the client is local or remote
+                if (strcmp(client_ip, "127.0.0.1") == 0)
+                {
+                    // Set a new date and time
+                    send(client_socket, "Enter the new date and time in the format: YYYY-MM-DD HH:MM:SS\n", strlen(options_msg), 0);
+                    bytes_received = recv(client_socket, buffer, MAX_BUFFER_SIZE, 0);
+                    if (bytes_received > 0)
+                    {
+                        buffer[bytes_received] = '\0';
+                        int year, month, day, hour, minute, second;
+                        sscanf(buffer, "%d-%d-%d %d:%d:%d", &year, &month, &day, &hour, &minute, &second);
+                        setSystemDateTime(year, month, day, hour, minute, second);
                     }
-                    break;
+                }
+                else
+                {
+                    // If the client is remote, don't allow them to set the time
+                    send(client_socket, "Only local clients can set the time.\n", strlen(options_msg), 0);
+                }
+                break;
+            case 3:
+                // Change time format
+                send(client_socket, "Enter the new time format (HH:MM:SS, HH:MM, HHMMSS, HHMM)\n", strlen(options_msg), 0);
+                bytes_received = recv(client_socket, buffer, MAX_BUFFER_SIZE, 0);
+                if (bytes_received > 0)
+                {
+                    buffer[bytes_received] = '\0';
+                    printf("Received time format: %s\n", buffer); // Debug log
 
-                case 3:
-                    // Exit
-                    send(client_socket, "Goodbye!\n", strlen(msg), 0);
-                    closesocket(client_socket);
-                    _endthread();
-                    break;
+                    // Check if the format is one of the accepted formats
+                    if (strcmp(buffer, "HH:MM:SS") == 0 || strcmp(buffer, "HH:MM") == 0 ||
+                        strcmp(buffer, "HHMMSS") == 0 || strcmp(buffer, "HHMM") == 0)
+                    {
+                        char formatted_time[100];
+                        format_time(buffer, formatted_time);
+                        send(client_socket, formatted_time, strlen(formatted_time), 0);
+                    }
+                    else
+                    {
+                        // If the format is not accepted, send an error message
+                        send(client_socket, "Invalid time format! Please try again.\n", strlen("Invalid time format! Please try again.\n"), 0);
+                    }
+                }
+                break;
 
-                default:
-                    // Invalid choice
-                    send(client_socket, "Invalid choice. Enter a valid option.\n", strlen(msg), 0);
-                    break;
+            case 4:
+                // Exit
+                send(client_socket, "Goodbye!\n", strlen(options_msg), 0);
+                closesocket(client_socket);
+                _endthread();
+                break;
             }
         }
     }
