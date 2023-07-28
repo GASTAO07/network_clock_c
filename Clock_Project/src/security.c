@@ -64,34 +64,3 @@ int check_and_set_config_file_permissions()
 }
 
 #endif
-
-// void handleErrors(void)
-// {
-//   ERR_print_errors_fp(stderr);
-//   abort();
-// }
-
-// int encrypt(unsigned char *plaintext, int plaintext_len, unsigned char *key,
-
-// }
-
-// int decrypt(unsigned char *ciphertext, int ciphertext_len, unsigned char *key,
-
-// }
-
-// int main() {
-// #ifdef _WIN32
-//     // Test getting the AppData path
-//     WCHAR *config_file_path = get_config_file_path();
-//     if (config_file_path == NULL)
-//     {
-//         fprintf(stderr, "Error getting file path.\n");
-//         return -1;
-//     }
-
-//     wprintf(L"AppData path: %s\n", config_file_path);
-//     free(config_file_path);
-// #endif
-
-//     return 0;
-// }

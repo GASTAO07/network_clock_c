@@ -1,71 +1,3 @@
-// #include <stdio.h>
-// #include <stdlib.h>
-// #include <string.h>
-// #include "../include/server.h"
-// #include "../include/time_setup.h"
-// #include "../include/config.h"
-
-// void printMenu() // <-----------------------------------------
-// {
-//     printf("\n[1] Help\n");
-//     printf("[2] Start the server\n");
-//     printf("[3] Set the time\n");
-//     printf("[0] Exit\n");
-// }
-
-// void start_console()
-// {
-//     char userInput;
-//     int port = read_port_from_config();
-//     if (port == -1)
-//     {
-//         fprintf(stderr, "Failed to read the port from the configuration file.\n");
-//         return;
-//     }
-
-//     printMenu();
-
-//     while (1)
-//     {
-//         printf("> ");
-//         scanf(" %c", &userInput);
-//         switch (userInput)
-//         {
-//         case '1':
-//             printMenu();
-//             break;
-//         case '2':
-//             start_network_clock_server();
-//             break;
-//         case '3':
-//         {
-//             int year, month, day, hour, minute, second; // <-----------------------------------------
-
-//             printf("Enter year: ");
-//             scanf("%d", &year);
-//             printf("Enter month: ");
-//             scanf("%d", &month);
-//             printf("Enter day: ");
-//             scanf("%d", &day);
-//             printf("Enter hour: ");
-//             scanf("%d", &hour);
-//             printf("Enter minute: ");
-//             scanf("%d", &minute);
-//             printf("Enter second: ");
-//             scanf("%d", &second);
-
-//             setSystemDateTime(year, month, day, hour, minute, second);
-//             break;
-//         }
-//         case '0':
-//             printf("Exiting...\n");
-//             return;
-//         default:
-//             printf("Invalid input. Please try again.\n");
-//         }
-//     }
-// }
-
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -185,33 +117,6 @@ void handle_client(void *data)
                     }
                 }
                 break;
-
-                // case 3:
-                // // Change time format
-                // send(client_socket, "Enter the new time format (HH:MM:SS, HH:MM, HHMMSS, HHMM, YYYY-MM-DD HH:MM:SS, YYYY-MM-DD)\r\n", strlen(options_msg), 0);
-                // bytes_received = recv(client_socket, buffer, MAX_BUFFER_SIZE, 0);
-                // if (bytes_received > 0)
-                // {
-                //     buffer[bytes_received] = '\0';
-                //     printf("Received time format: %s\r\n", buffer); // Debug log
-
-                //     // Check if the format is one of the accepted formats
-                //     if (strcmp(buffer, "%H:%M:%S") == 0 || strcmp(buffer, "%H:%M") == 0 ||
-                //         strcmp(buffer, "%H%M%S") == 0 || strcmp(buffer, "%H%M") == 0 ||
-                //         strcmp(buffer, "%Y-%m-%d %H:%M:%S") == 0 || strcmp(buffer, "%Y-%m-%d") == 0)
-                //     {
-                //         char formatted_time[100];
-                //         format_time(buffer, formatted_time);
-                //         send(client_socket, formatted_time, strlen(formatted_time), 0);
-                //     }
-                //     else
-                //     {
-                //         // If the format is not accepted, send an error message
-                //         send(client_socket, "Invalid time format! Please try again.\r\n", strlen("Invalid time format! Please try again.\r\n"), 0);
-                //     }
-                // }
-                // break;
-
             case 4:
                 // Exit
                 send(client_socket, "Goodbye!\r\n", strlen(options_msg), 0);
