@@ -44,7 +44,7 @@ int main() {
             return 1;
         }
         else if (recv_size > 0) {
-            printf("Server message: %s\n", server_reply);
+            printf("Server message: %s\n\n", server_reply);
         }
 
         fgets(user_input, MAX_BUFFER_SIZE, stdin);
