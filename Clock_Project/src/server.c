@@ -1,3 +1,54 @@
+// #include <stdio.h>
+// #include <string.h>
+// #include <stdlib.h>
+// #include <winsock2.h>
+// #include "../include/network_clock.h"
+// #include "../include/time_setup.h"
+// #include "../include/config.h"
+// #include <process.h>
+// #include <time.h>
+
+// #define MAX_BUFFER_SIZE 1024
+
+// void format_time(const char *format, char *output)
+// {
+//     time_t t = time(NULL);
+//     struct tm *tm_info = localtime(&t);
+
+//     if (strcmp(format, "HH:MM:SS") == 0)
+//     {
+//         strftime(output, 26, "%H:%M:%S", tm_info);
+//     }
+//     else if (strcmp(format, "HH:MM") == 0)
+//     {
+//         strftime(output, 26, "%H:%M", tm_info);
+//     }
+//     else if (strcmp(format, "HHMMSS") == 0)
+//     {
+//         strftime(output, 26, "%H%M%S", tm_info);
+//     }
+//     else if (strcmp(format, "HHMM") == 0)
+//     {
+//         strftime(output, 26, "%H%M", tm_info);
+//     }
+//     else if (strcmp(format, "YYYY-MM-DD HH:MM:SS") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d %H:%M:%S", tm_info);
+//     }
+//     else if (strcmp(format, "YYYY-MM-DD HH:MM") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d %H:%M", tm_info);
+//     }
+//     else if (strcmp(format, "YYYY-MM-DD") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d", tm_info);
+//     }
+//     else
+//     {
+//         strcpy(output, "Invalid time format! Please try again.\n");
+//     }
+// }
+
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -17,25 +68,39 @@ void format_time(const char *format, char *output)
 
     if (strcmp(format, "HH:MM:SS") == 0)
     {
-        strftime(output, 26, "%H:%M:%S\n", tm_info);
+        strftime(output, 26, "%H:%M:%S", tm_info);
     }
     else if (strcmp(format, "HH:MM") == 0)
     {
-        strftime(output, 26, "%H:%M\n", tm_info);
+        strftime(output, 26, "%H:%M", tm_info);
     }
     else if (strcmp(format, "HHMMSS") == 0)
     {
-        strftime(output, 26, "%H%M%S\n", tm_info);
+        strftime(output, 26, "%H%M%S", tm_info);
     }
     else if (strcmp(format, "HHMM") == 0)
     {
-        strftime(output, 26, "%H%M\n", tm_info);
+        strftime(output, 26, "%H%M", tm_info);
+    }
+    else if (strcmp(format, "YYYY-MM-DD HH:MM:SS") == 0)
+    {
+        strftime(output, 26, "%Y-%m-%d %H:%M:%S", tm_info);
+    }
+    else if (strcmp(format, "YYYY-MM-DD HH:MM") == 0)
+    {
+        strftime(output, 26, "%Y-%m-%d %H:%M", tm_info);
+    }
+    else if (strcmp(format, "YYYY-MM-DD") == 0)
+    {
+        strftime(output, 26, "%Y-%m-%d", tm_info);
     }
     else
     {
         strcpy(output, "Invalid time format! Please try again.\n");
     }
 }
+
+// ... (Rest of your original server code) ...
 
 void handle_client(void *data)
 {
@@ -50,8 +115,8 @@ void handle_client(void *data)
     char *client_ip = inet_ntoa(client_addr.sin_addr);
 
     // Send welcome message with options to the client
-    char *welcome_msg = "Welcome!\n";
-    char *options_msg = "Available options:\n[1] Help\n[2] Set the time\n[3] Change format time\n[4] Exit\n";
+    char *welcome_msg = "Welcome! \r\n";
+    char *options_msg = "Available options:\r\n[1] Help\r\n[2] Set the time\r\n[3] Change format time\r\n[4] Exit\r\n";
 
     // Check if the client is local or remote
     if (strcmp(client_ip, "127.0.0.1") == 0)
@@ -93,7 +158,7 @@ void handle_client(void *data)
                 if (strcmp(client_ip, "127.0.0.1") == 0)
                 {
                     // Set a new date and time
-                    send(client_socket, "Enter the new date and time in the format: YYYY-MM-DD HH:MM:SS\n", strlen(options_msg), 0);
+                    send(client_socket, "Enter the new date and time in the format: YYYY-MM-DD HH:MM:SS\r\n", strlen(options_msg), 0);
                     bytes_received = recv(client_socket, buffer, MAX_BUFFER_SIZE, 0);
                     if (bytes_received > 0)
                     {
@@ -106,37 +171,39 @@ void handle_client(void *data)
                 else
                 {
                     // If the client is remote, don't allow them to set the time
-                    send(client_socket, "Only local clients can set the time.\n", strlen(options_msg), 0);
+                    send(client_socket, "Only local clients can set the time.\r\n", strlen(options_msg), 0);
                 }
                 break;
             case 3:
                 // Change time format
-                send(client_socket, "Enter the new time format (HH:MM:SS, HH:MM, HHMMSS, HHMM)\n", strlen(options_msg), 0);
+                send(client_socket, "Enter the new time format (HH:MM:SS, HH:MM, HHMMSS, HHMM, YYYY-MM-DD HH:MM:SS, YYYY-MM-DD)\r\n", strlen(options_msg), 0);
                 bytes_received = recv(client_socket, buffer, MAX_BUFFER_SIZE, 0);
                 if (bytes_received > 0)
                 {
                     buffer[bytes_received] = '\0';
-                    printf("Received time format: %s\n", buffer); // Debug log
+                    printf("Received time format: %s\r\n", buffer); // Debug log
 
                     // Check if the format is one of the accepted formats
                     if (strcmp(buffer, "HH:MM:SS") == 0 || strcmp(buffer, "HH:MM") == 0 ||
-                        strcmp(buffer, "HHMMSS") == 0 || strcmp(buffer, "HHMM") == 0)
+                        strcmp(buffer, "HHMMSS") == 0 || strcmp(buffer, "HHMM") == 0 ||
+                        strcmp(buffer, "YYYY-MM-DD HH:MM:SS") == 0 || strcmp(buffer, "YYYY-MM-DD") == 0)
                     {
                         char formatted_time[100];
                         format_time(buffer, formatted_time);
                         send(client_socket, formatted_time, strlen(formatted_time), 0);
                     }
+
                     else
                     {
                         // If the format is not accepted, send an error message
-                        send(client_socket, "Invalid time format! Please try again.\n", strlen("Invalid time format! Please try again.\n"), 0);
+                        send(client_socket, "Invalid time format! Please try again.\r\n", strlen("Invalid time format! Please try again.\r\n"), 0);
                     }
                 }
                 break;
 
             case 4:
                 // Exit
-                send(client_socket, "Goodbye!\n", strlen(options_msg), 0);
+                send(client_socket, "Goodbye!\r\n", strlen(options_msg), 0);
                 closesocket(client_socket);
                 _endthread();
                 break;
@@ -231,3 +298,217 @@ int main()
     start_network_clock_server();
     return 0;
 }
+
+
+
+// void format_time(const char *format, char *output)
+// {
+//     time_t t = time(NULL);
+//     struct tm *tm_info = localtime(&t);
+
+//     if (strcmp(format, "HH:MM:SS") == 0)
+//     {
+//         strftime(output, 26, "%H:%M:%S", tm_info);
+//     }
+//     else if (strcmp(format, "HH:MM") == 0)
+//     {
+//         strftime(output, 26, "%H:%M", tm_info);
+//     }
+//     else if (strcmp(format, "HHMMSS") == 0)
+//     {
+//         strftime(output, 26, "%H%M%S", tm_info);
+//     }
+//     else if (strcmp(format, "HHMM") == 0)
+//     {
+//         strftime(output, 26, "%H%M", tm_info);
+//     }
+//     else if (strcmp(format, "YYYY-MM-DD HH:MM:SS") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d %H:%M:%S", tm_info);
+//     }
+//     else if (strcmp(format, "YYYY-MM-DD HH:MM") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d %H:%M", tm_info);
+//     }
+//     else if (strcmp(format, "YYYY-MM-DD") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d", tm_info);
+//     }
+//     else
+//     {
+//         strcpy(output, "Invalid time format! Please try again.\n");
+//     }
+// }
+
+
+// void format_time(const char *format, char *output)
+// {
+//     time_t t = time(NULL);
+//     struct tm *tm_info = localtime(&t);
+
+//     if (strcmp(format, "%H:%M:%S") == 0)
+//     {
+//         strftime(output, 26, "%H:%M:%S\n", tm_info);
+//     }
+//     else if (strcmp(format, "%H:%M") == 0)
+//     {
+//         strftime(output, 26, "%H:%M\n", tm_info);
+//     }
+//     else if (strcmp(format, "%H%M%S") == 0)
+//     {
+//         strftime(output, 26, "%H%M%S\n", tm_info);
+//     }
+//     else if (strcmp(format, "%H%M") == 0)
+//     {
+//         strftime(output, 26, "%H%M\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y-%m-%d %H:%M:%S") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d %H:%M:%S\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y-%m %H:%M:%S") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m %H:%M:%S\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y %H:%M:%S") == 0)
+//     {
+//         strftime(output, 26, "%Y %H:%M:%S\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y-%m-%d %H%M%S") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d %H%M%S\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y-%m %H%M%S") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m %H%M%S\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y %H%M%S") == 0)
+//     {
+//         strftime(output, 26, "%Y %H%M%S\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y-%m-%d %H%M") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d %H%M\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y-%m %H%M") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m %H%M\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y %H%M") == 0)
+//     {
+//         strftime(output, 26, "%Y %H%M\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y-%m-%d %H:%M") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d %H:%M\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y-%m %H:%M") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m %H:%M\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y %H:%M") == 0)
+//     {
+//         strftime(output, 26, "%Y %H:%M\n", tm_info);
+//     }
+//     else if (strcmp(format, "%Y-%m-%d") == 0)
+//     {
+//         strftime(output, 26, "%Y-%m-%d\n", tm_info);
+//     }
+//     else
+//     {
+//         strcpy(output, "Invalid time format! Please try again.\n");
+//     }
+// }
+
+
+// void format_time(const char *format, char *output)
+// {
+//     time_t t = time(NULL);
+//     struct tm *tm_info = localtime(&t);
+
+    //     if (strcmp(format, "HH:MM:SS") == 0)
+    //     {
+    //         strftime(output, 26, "%H:%M:%S\n", tm_info);
+    //     }
+    //     else if (strcmp(format, "HH:MM") == 0)
+    //     {
+    //         strftime(output, 26, "%H:%M\n", tm_info);
+    //     }
+    //     else if (strcmp(format, "HHMMSS") == 0)
+    //     {
+    //         strftime(output, 26, "%H%M%S\n", tm_info);
+    //     }
+    //     else if (strcmp(format, "HHMM") == 0)
+    //     {
+    //         strftime(output, 26, "%H%M\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY-MM-DD HH:MM:SS") == 0)
+    //     {
+    //         strftime(output, 26, "%Y-%m-%d %H:%M:%S\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY-MM HH:MM:SS") == 0)
+    //     {
+    //         strftime(output, 26, "%Y-%m %H:%M:%S\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY HH:MM:SS") == 0)
+    //     {
+    //         strftime(output, 26, "%Y %H:%M:%S\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY-MM-DD HHMMSS") == 0)
+    //     {
+    //         strftime(output, 26, "%Y-%m-%d %H%M%S\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY-MM HHMMSS") == 0)
+    //     {
+    //         strftime(output, 26, "%Y-%m %H%M%S\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY HHMMSS") == 0)
+    //     {
+    //         strftime(output, 26, "%Y %H%M%S\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY-MM-DD HHMM") == 0)
+    //     {
+    //         strftime(output, 26, "%Y-%m-%d %H%M\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY-MM HHMM") == 0)
+    //     {
+    //         strftime(output, 26, "%Y-%m %H%M\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY HHMM") == 0)
+    //     {
+    //         strftime(output, 26, "%Y %H%M\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY-MM-DD HH:MM") == 0)
+    //     {
+    //         strftime(output, 26, "%Y-%m-%d %H:%M\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY-MM HH:MM") == 0)
+    //     {
+    //         strftime(output, 26, "%Y-%m %H:%M\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY HH:MM") == 0)
+    //     {
+    //         strftime(output, 26, "%Y %H:%M\n", tm_info);
+    //     }
+
+    //     else if (strcmp(format, "YYYY-MM-DD") == 0)
+    //     {
+    //         strftime(output, 26, "%Y-%m-%d\n", tm_info);
+    //     }
+    //     else
+    //     {
+    //         strcpy(output, "Invalid time format! Please try again.\n");
+    //     }
+    // }
